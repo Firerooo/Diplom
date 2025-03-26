@@ -1,0 +1,41 @@
+{% extends 'listings/base.html' %}
+
+{% block title %}Отзывы - Аренда жилья{% endblock %}
+
+{% block content %}
+<section class="reviews-page">
+    <div class="container">
+        <h1>Отзывы пользователей</h1>
+        
+        <!-- Кнопка оставить отзыв -->
+        <button id="leave-review-btn" class="btn btn-success">Оставить отзыв</button>
+
+        <!-- Список отзывов -->
+        <div class="review-list">
+            {% for review in reviews %}
+                <div class="review">
+                    <p class="review-text">"{{ review.text }}"</p>
+                    <p class="review-author">— {{ review.user.username }}</p>
+                </div>
+            {% empty %}
+                <p>Пока нет отзывов. Будьте первым!</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% if user.is_authenticated %}
+
+{% else %}
+<div id="auth-modal" class="modal">
+    <div class="modal-content">
+        <p>Чтобы оставить отзыв, необходимо авторизоваться. Желаете авторизоваться?</p>
+        <div class="modal-buttons">
+            <button id="confirm-auth" class="btn btn-primary">Да</button>
+            <button id="close-modal" class="btn btn-secondary">Нет</button>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

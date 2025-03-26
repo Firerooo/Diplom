@@ -7,44 +7,80 @@
     --text: #343A40;
     --success: #28A745;
     --error: #DC3545;
+    --buttons: #005BFF;
 }
 
 /* Общие стили */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     background: var(--background);
     color: var(--text);
-    margin: 0;
-    padding: 0;
 }
 
 /* Шапка */
 header {
     background: var(--primary);
-    padding: 10px;
+    height: 60px;
+    border-bottom: 1px solid rgba(55, 55, 55, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    z-index: 1000;
+}
+
+.divHeader {
+    margin: 0;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+nav {
+    margin-left: auto;
+    margin-bottom: 5px;
+}
+
+.logo-Header {
+    margin-left: 20px;
 }
 
 nav ul {
     list-style: none;
-    padding: 0;
     display: flex;
+    margin: 0;
 }
 
 nav li {
     margin-right: 15px;
+    padding: 0 10px;
+
 }
 
-nav a {
+nav a,
+.logo-Header-url {
     color: var(--secondary);
     text-decoration: none;
+    font-weight: bold;
 }
 
 /* Главный экран (Hero Section) */
 .hero {
-    background: var(--background);
+    background: var(--primary);
     color: var(--text);
     text-align: center;
-    padding: 100px 20px;
+    padding: 150px 20px;
 }
 
 .hero-content {
@@ -53,14 +89,50 @@ nav a {
 }
 
 .hero h1 {
-    font-size: 36px;
+    font-size: 50px;
     margin-bottom: 10px;
 }
 
 .hero p {
-    font-size: 18px;
+    font-size: 25px;
     margin-bottom: 20px;
 }
+
+/* Поисковая строка */
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 550px;
+    margin: auto;
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    padding: 12px 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-btn {
+    background: var(--success);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.search-btn:hover {
+    background: #218838; 
+}
+
 
 .buttons {
     display: flex;
@@ -69,19 +141,27 @@ nav a {
 }
 
 .btn {
-    background: var(--primary);
+    background: var(--buttons);
     color: white;
     padding: 10px 20px;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 3px;
     font-weight: bold;
+    border: 2px solid transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+    border: 2px solid var(--secondary);
 }
 
 
 /* Раздел "Почему мы?" */
 .features {
     text-align: center;
-    padding: 50px 20px;
+    margin: 20px 0;
+    padding: 100px 20px;
+    background: var(--background);
 }
 
 .features h2 {
@@ -101,6 +181,91 @@ nav a {
     padding: 10px;
     background: var(--primary);
     border-radius: 10px;
+}
+
+/* Секция для арендодателей */
+.landlord-info {
+    background: var(--secondary);
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.landlord-info .container {
+    max-width: 800px;
+    margin: auto;
+}
+
+.landlord-info h2 {
+    font-size: 28px;
+    color: var(--text);
+    margin-bottom: 15px;
+}
+
+.landlord-info p {
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 20px;
+}
+
+.landlord-info .btn-primary {
+    background: var(--buttons);
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.landlord-info .btn-primary:hover {
+    background: #0056b3;
+}
+
+/* Секция отзывов */
+.reviews {
+    background: var(--background);
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.reviews .container {
+    max-width: 800px;
+    margin: auto;
+    margin-bottom: 20px;
+
+}
+
+.reviews h2 {
+    font-size: 28px;
+    color: var(--text);
+    margin-bottom: 20px;
+}
+
+.review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review {
+    background: var(--secondary);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.review-text {
+    font-size: 16px;
+    font-style: italic;
+    color: var(--text);
+    margin-bottom: 10px;
+}
+
+.review-author {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text);
 }
 
 /* футер */
@@ -143,10 +308,17 @@ footer a {
     border-radius: 20px; 
     transition: all 0.3s ease-in-out;
 }
-
+.footer-contact {
+    margin-top: 0;
+}
+.footer-contact-list {
+    list-style: none;
+}
 .inc {
     padding: 0 50px;
     text-align: right;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 /* Страница "О нас" */
@@ -172,4 +344,120 @@ footer a {
     background: var(--secondary);
     border-radius: 5px;
     margin-bottom: 10px;
+}
+
+/* Страница "Политика конфиденциальности" */
+.privacy {
+    padding: 50px 20px;
+    max-width: 800px;
+    margin: auto;
+    text-align: left;
+}
+
+.privacy h1, .privacy h2 {
+    color: var(--primary);
+}
+
+.privacy ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+/* Стили для страницы отзывов */
+.reviews-page {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.review-list {
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review {
+    background: var(--secondary);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для модального окна */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: var(--background);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-buttons {
+    margin-top: 20px;
+}
+
+.modal-buttons .btn {
+    margin: 5px;
+}
+
+/* страница входа и регестрации пользователя */
+.auth {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: var(--secondary);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth h2 {
+    text-align: center;
+    color: var(--text);
+    margin-bottom: 20px;
+}
+
+.auth .form-group {
+    margin-bottom: 15px;
+}
+
+.auth label {
+    display: block;
+    font-weight: bold;
+    color: var(--text);
+}
+
+.auth input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.auth button {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.auth button:hover {
+    background: #0056b3;
 }

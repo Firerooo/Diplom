@@ -7,10 +7,10 @@
         <div class="hero-content">
             <h1>Найдите идеальное жильё</h1>
             <p>Аренда и покупка квартир по всему миру</p>
-            <div class="buttons">
-                <a href="" class="btn">Поиск аренды</a>
-                <a href="" class="btn">Поиск покупки</a>
-            </div>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Введите город..." class="search-input">
+            <button class="search-btn">Поиск</button>
         </div>
     </section>
 
@@ -19,7 +19,7 @@
         <div class="feature-list">
             <div class="feature">
                 <h3>Широкий выбор</h3>
-                <p>Тысячи объявлений в разных городах</p>
+                <p>Большое количество объявлений в разных городах</p>
             </div>
             <div class="feature">
                 <h3>Удобный поиск</h3>
@@ -31,7 +31,35 @@
             </div>
         </div>
         <div class="buttons">
-            <a href="{% url 'about' %}" class="btn">Подробнее</a>
+            <a href="{% url 'listings:about' %}" class="btn">Подробнее</a>
         </div>
+    </section>
+    <section class="landlord-info">
+        <div class="container">
+            <h2>Сдавайте жильё легко и быстро</h2>
+            <p>Размещайте свои объявления на нашей платформе и находите арендаторов без лишних хлопот.</p>
+            <button class="btn btn-primary">Подать объявление</button>
+        </div>
+    </section>
+    <section class="reviews">
+        <div class="container">
+            <h2>Отзывы наших пользователей</h2>
+            <div class="review-list">
+                <div class="review">
+                    <p class="review-text">«Отличный сервис! Нашёл квартиру за пару дней, всё прошло гладко.»</p>
+                    <p class="review-author">— Алексей П.</p>
+                </div>
+                <div class="review">
+                    <p class="review-text">«Сдавала квартиру через этот сайт. Очень удобно, нашла арендаторов быстро.»</p>
+                    <p class="review-author">— Екатерина С.</p>
+                </div>
+                <div class="review">
+                    <p class="review-text">«Простая регистрация, удобный поиск. Рекомендую!»</p>
+                    <p class="review-author">— Иван Т.</p>
+                </div>
+            </div>
+        </div>
+        <a href="{% url 'listings:reviews' %}" class="btn">Все отзывы</a>
+
     </section>
 {% endblock %}
