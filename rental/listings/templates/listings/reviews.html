@@ -1,4 +1,5 @@
 {% extends 'listings/base.html' %}
+{% load static %}
 
 {% block title %}Отзывы - Аренда жилья{% endblock %}
 
@@ -6,28 +7,82 @@
 <section class="reviews-page">
     <div class="container">
         <h1>Отзывы пользователей</h1>
-        
-        <!-- Кнопка оставить отзыв -->
-        <button id="leave-review-btn" class="btn btn-success">Оставить отзыв</button>
-
-        <!-- Список отзывов -->
         <div class="review-list">
-            {% for review in reviews %}
+            {% for review in page_obj %}
                 <div class="review">
                     <p class="review-text">"{{ review.text }}"</p>
-                    <p class="review-author">— {{ review.user.username }}</p>
+                    <p class="review-author">— {{ review.user.first_name }}</p>
                 </div>
             {% empty %}
                 <p>Пока нет отзывов. Будьте первым!</p>
             {% endfor %}
         </div>
+        <button id="leave-review-btn" class="btn btn-success">Оставить отзыв</button>
+        
+        <!-- Пагинация -->
+        <div class="pagination">
+            <span class="current">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+            <div class="pagination-links">
+                {% if page_obj.has_previous %}
+                    <!-- Кнопка "Предыдущая" -->
+                    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary"><-</a>
+        
+                    <!-- Первая страница (не отображать, если текущая страница 2) -->
+                    {% if page_obj.number > 2 %}
+                        <a href="?page=1" class="btn btn-secondary">1</a>
+                        {% if page_obj.number > 3 %}
+                            <span>...</span>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                
+                <!-- Отображение диапазона вокруг текущей страницы -->
+                {% for num in page_obj.paginator.page_range %}
+                    {% if num >= page_obj.number|add:"-1" and num <= page_obj.number|add:"1" %}
+                        {% if num == page_obj.number %}
+                            <span class="btn btn-primary">{{ num }}</span>
+                        {% else %}
+                            <a href="?page={{ num }}" class="btn btn-secondary">{{ num }}</a>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                    <!-- Многоточие перед последней страницей -->
+                    {% if page_obj.number < page_obj.paginator.num_pages|add:"-2" %}
+                        <span>...</span>
+                    {% endif %}
+        
+                    <!-- Последняя страница (не отображать, если текущая страница предпоследняя) -->
+                    {% if page_obj.number < page_obj.paginator.num_pages|add:"-1" %}
+                        <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-secondary">{{ page_obj.paginator.num_pages }}</a>
+                    {% endif %}
+        
+                    <!-- Кнопка "Следующая" -->
+                    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">-></a>
+                {% endif %}
+            </div>
+        </div>
+        
     </div>
 </section>
 
+<!-- Модальное окно для отзыва (если пользователь авторизован) -->
 {% if user.is_authenticated %}
-
+<div id="review-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeReviewModal()">&times;</span>
+        <h2>Оставить отзыв</h2>
+        <form method="post" action="{% url 'listings:add_review' %}" class="review-form">
+            {% csrf_token %}
+            <textarea name="text" class="form-control" rows="4" placeholder="Напишите ваш отзыв..."></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+</div>
 {% else %}
-<div id="auth-modal" class="modal">
+<!-- Модальное окно для авторизации -->
+<div id="auth-modal" class="modal" style="display: none;">
     <div class="modal-content">
         <p>Чтобы оставить отзыв, необходимо авторизоваться. Желаете авторизоваться?</p>
         <div class="modal-buttons">
@@ -38,4 +93,6 @@
 </div>
 {% endif %}
 
+<!-- Подключаем JS -->
+<script src="{% static 'js/reviews.js' %}"></script>
 {% endblock %}

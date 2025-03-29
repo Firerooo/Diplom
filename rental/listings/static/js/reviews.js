@@ -1,30 +1,30 @@
 document.addEventListener("DOMContentLoaded", function () {
     const leaveReviewBtn = document.getElementById("leave-review-btn");
-    const modal = document.getElementById("auth-modal");
-    const closeModalBtn = document.getElementById("close-modal");
+    const authModal = document.getElementById("auth-modal");
+    const reviewModal = document.getElementById("review-modal");
+    const closeModalBtns = document.querySelectorAll(".close-modal, #close-modal");
     const confirmAuthBtn = document.getElementById("confirm-auth");
 
     leaveReviewBtn.addEventListener("click", function () {
-        const isAuthenticated = document.body.dataset.authenticated === "true";
-
-        if (!isAuthenticated) {
-            modal.style.display = "flex";
+        if (reviewModal) {
+            reviewModal.style.display = "flex";
         } else {
-            window.location.href = "/leave-review/";
+            authModal.style.display = "flex";
         }
     });
-
-    closeModalBtn.addEventListener("click", function () {
-        modal.style.display = "none";
+    
+    closeModalBtns.forEach(btn => {
+        btn.addEventListener("click", function () {
+            this.closest(".modal").style.display = "none";
+        });
     });
 
-    confirmAuthBtn.addEventListener("click", function () {
+    confirmAuthBtn?.addEventListener("click", function () {
         window.location.href = "/users/login/";
     });
 
     window.addEventListener("click", function (event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
+        if (event.target === authModal) authModal.style.display = "none";
+        if (reviewModal && event.target === reviewModal) reviewModal.style.display = "none";
     });
 });

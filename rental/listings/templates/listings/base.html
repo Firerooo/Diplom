@@ -14,7 +14,7 @@
             <nav>
                 <ul>
                     <li><a href="{% url 'listings:apartments' %}">Квартиры</a></li>
-                    <li><a href="{% url 'listings:reviews' %}">Отзывы</a></li>
+                    <li><a href="{% url 'listings:reviews_list' %}">Отзывы</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'users:logout' %}">Выход</a></li>
                     {% else %}

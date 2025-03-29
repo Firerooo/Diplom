@@ -45,21 +45,17 @@
         <div class="container">
             <h2>Отзывы наших пользователей</h2>
             <div class="review-list">
+                {% for review in reviews %}
                 <div class="review">
-                    <p class="review-text">«Отличный сервис! Нашёл квартиру за пару дней, всё прошло гладко.»</p>
-                    <p class="review-author">— Алексей П.</p>
+                    <p class="review-text">"{{ review.text }}"</p>
+                    <p class="review-author">— {{ review.user.first_name }}</p>
                 </div>
-                <div class="review">
-                    <p class="review-text">«Сдавала квартиру через этот сайт. Очень удобно, нашла арендаторов быстро.»</p>
-                    <p class="review-author">— Екатерина С.</p>
-                </div>
-                <div class="review">
-                    <p class="review-text">«Простая регистрация, удобный поиск. Рекомендую!»</p>
-                    <p class="review-author">— Иван Т.</p>
-                </div>
+                {% empty %}
+                    <p>Пока нет отзывов. Будьте первым!</p>
+                {% endfor %}
             </div>
         </div>
-        <a href="{% url 'listings:reviews' %}" class="btn">Все отзывы</a>
+        <a href="{% url 'listings:reviews_list' %}" class="btn">Все отзывы</a>
 
     </section>
 {% endblock %}
